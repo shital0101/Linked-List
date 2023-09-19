@@ -1,0 +1,84 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<malloc.h>
+struct node
+{   int data;
+   struct node* next;
+};
+struct node* create(struct node* list)
+{
+    struct node *newnode,*temp;
+    int i,n;
+    printf("enter the limit:");
+    scanf("%d",&n);
+    for(i=0;i<n;i++)
+     {
+       newnode=(struct node*)malloc(sizeof(struct node));
+       printf("\n enter the value:");
+       scanf("%d",&newnode->data);
+       newnode->next=NULL;
+         if(list==NULL)
+          {
+             list=newnode;
+             temp=newnode;
+          }
+         else
+          {
+              temp->next=newnode;
+              temp=newnode;
+           }
+       }
+         return list;
+}
+void display(struct node *list)
+{
+      struct node *temp;
+      for(temp=list;temp!=NULL;temp=temp->next)
+       {
+         printf("%d\t",temp->data);
+       }
+}
+struct node* del(struct node* list,int pos)
+{
+    int i;
+    struct node *temp, *temp1;
+    if(pos==1)
+     {
+        temp=list;
+        list=list->next;
+        free(temp);
+      }
+     else
+       {
+           for(i=1,temp=list;i<(pos-1)&&temp->next->next!=NULL;i++,temp=temp->next);
+              temp1=temp->next;
+              temp->next=NULL;
+
+                free(temp1);
+        }
+    return list;
+}
+
+int main()
+{
+   int ch,pos;
+   struct node *list=NULL;
+   do
+   {
+      printf("\n1-create \n2-display \n3-Delete The Node:");
+      printf("\n enter your choice:");
+      scanf("%d",&ch);
+      switch(ch)
+       {
+         case 1:list=create(list);
+                break;
+         case 2:display(list);
+                break;
+         case 3:printf("\n enter the position:");
+                scanf("%d",&pos);
+                 list=del(list,pos);
+                 break;
+        default: printf("\n invalid choice");
+       }
+    }while(ch<4);
+}
