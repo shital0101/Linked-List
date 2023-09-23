@@ -1,0 +1,50 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define NODEALLOC (NODE*)malloc(sizeof(NODE))
+typedef struct node
+{
+    int data;
+     struct node *next,*prev;
+}NODE;
+
+NODE *create(NODE *list)
+{
+    int i,n;
+    NODE *newnode,*temp;
+    printf("\n enter the limit:");
+    scanf("%d",&n);
+    for(i=0;i<n;i++)
+    {
+       newnode=NODEALLOC;
+       printf("\n enter the value:");
+       scanf("%d",&newnode->data);
+       newnode->next=NULL;
+        if(list==NULL)
+         {
+            list=temp=newnode;
+         }
+        else
+         {
+            temp->next=newnode;
+            newnode->prev=temp;
+            temp=newnode;
+         }
+       }
+         return list;
+}
+
+void display(NODE *list)
+{
+     NODE *temp;
+     for(temp=list;temp!=NULL;temp=temp->next)
+       {
+         printf("%d\t",temp->data);
+       }
+}
+
+int main()
+{
+    NODE *list=NULL;
+    list=create(list);
+    display(list);
+}
